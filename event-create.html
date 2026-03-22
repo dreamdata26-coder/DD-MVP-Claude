@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Database — Create Event</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--sb:#111827;--sbh:#1f2937;--sbt:#9ca3af;--sba:#f9fafb;--gold:#c9973a;--gh:#a67c28;--gt:#d4a843;--bg:#f5f5f5;--s:#fff;--b:#e5e7eb;--b2:#f3f4f6;--t:#111827;--tm:#6b7280;--tl:#9ca3af;--green:#16a34a;--gbg:#dcfce7;--gtt:#15803d;--red:#dc2626;--rbg:#fee2e2;--rt:#b91c1c;--r:8px;--rs:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);font-size:13px;line-height:1.5;min-height:100vh;display:flex}
+.sb{width:196px;min-height:100vh;background:var(--sb);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sb-logo{padding:18px 14px 14px;border-bottom:1px solid #1f2937}
+.lm{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.lm svg{width:17px;height:17px}
+.ln{font-size:12.5px;font-weight:600;color:#f9fafb}
+.ls{font-size:10px;color:var(--sbt);margin-top:1px}
+.sb-nav{flex:1;padding:10px 7px;overflow-y:auto}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:var(--rs);color:var(--sbt);font-size:12.5px;cursor:pointer;transition:all .12s;text-decoration:none;margin-bottom:1px}
+.ni:hover{background:var(--sbh);color:#e5e7eb}
+.ni.on{background:var(--sbh);color:var(--sba)}
+.ni svg{width:14px;height:14px;flex-shrink:0}
+.nd{margin-left:auto;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:var(--gold);color:#fff}
+.nd.r{background:var(--red)}
+.sb-bot{border-top:1px solid #1f2937;padding:10px 7px}
+.ub{padding:9px;border-radius:var(--rs);cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .12s}
+.ub:hover{background:var(--sbh)}
+.ua{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.un{font-size:11.5px;font-weight:500;color:#e5e7eb}
+.ur{font-size:9.5px;color:var(--sbt)}
+.main{margin-left:196px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--s);border-bottom:1px solid var(--b);padding:0 22px;height:50px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tbr{display:flex;align-items:center;gap:7px}
+.tbt{font-size:14px;font-weight:600}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tm)}
+.bc a{color:var(--tm);text-decoration:none}.bc a:hover{color:var(--t)}
+.bcs{color:var(--tl)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:var(--rs);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--b);background:var(--s);color:var(--t);transition:all .12s;font-family:inherit;text-decoration:none}
+.btn:hover{background:var(--bg)}
+.btn-g{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-g:hover{background:var(--gh)}
+.content{padding:20px 22px;flex:1;display:flex;gap:20px}
+
+/* Steps sidebar */
+.steps-col{width:220px;flex-shrink:0}
+.steps-card{background:var(--s);border:1px solid var(--b);border-radius:var(--r);overflow:hidden;position:sticky;top:70px}
+.steps-head{padding:13px 16px;border-bottom:1px solid var(--b);font-size:12.5px;font-weight:600}
+.step-item{padding:11px 16px;border-bottom:1px solid var(--b2);display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .1s}
+.step-item:last-child{border-bottom:none}
+.step-item:hover{background:#fafafa}
+.step-item.active{background:#fffbf3}
+.snum{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;border:1.5px solid var(--b);color:var(--tm);background:var(--bg)}
+.step-item.active .snum{background:var(--gold);border-color:var(--gold);color:#fff}
+.step-item.done .snum{background:var(--green);border-color:var(--green);color:#fff}
+.step-item.done .snum::after{content:'✓'}
+.step-item.active .snum{content:attr(data-n)}
+.sname{font-size:12px;font-weight:500;color:var(--tm)}
+.step-item.active .sname{color:var(--t)}
+
+/* Form area */
+.form-col{flex:1;min-width:0}
+.form-card{background:var(--s);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
+.fh{padding:16px 20px;border-bottom:1px solid var(--b)}
+.ft{font-size:15px;font-weight:600;margin-bottom:2px}
+.fs{font-size:11.5px;color:var(--tm)}
+.fb{padding:20px}
+.fl{margin-bottom:16px}
+.fl label{display:block;font-size:11.5px;font-weight:500;color:#374151;margin-bottom:5px}
+.fi{width:100%;padding:8px 11px;border:1px solid var(--b);border-radius:var(--rs);font-family:inherit;font-size:12.5px;color:var(--t);background:var(--s);outline:none;transition:border-color .15s}
+.fi:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,151,58,.1)}
+.fi::placeholder{color:var(--tl)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.sec-label{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tm);margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--b2)}
+.ffooter{padding:14px 20px;border-top:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.step-info{font-size:11.5px;color:var(--tm)}
+.fbtns{display:flex;gap:8px}
+
+/* Access codes panel (Figma reference) */
+.access-section{margin-top:16px}
+.ac-card{background:var(--s);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
+.ac-head{padding:13px 16px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.ac-title{font-size:13px;font-weight:600}
+.ac-table{width:100%;border-collapse:collapse}
+.ac-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);padding:8px 14px;background:#fafafa;border-bottom:1px solid var(--b)}
+.ac-table td{padding:10px 14px;border-bottom:1px solid var(--b2);font-size:12px;vertical-align:middle}
+.ac-table tr:last-child td{border-bottom:none}
+.code-pill{font-family:monospace;font-size:11px;background:var(--b2);padding:3px 8px;border-radius:4px;color:var(--t);letter-spacing:.5px}
+.badge{display:inline-flex;font-size:10.5px;font-weight:500;padding:2px 7px;border-radius:4px}
+.bg{background:var(--gbg);color:var(--gtt)}
+.bo{background:#fef3c7;color:#92400e}
+.bx{background:var(--b2);color:var(--tm)}
+.br{background:var(--rbg);color:var(--rt)}
+.ca{font-size:11.5px;color:var(--gt);cursor:pointer;font-weight:500}
+.ca:hover{text-decoration:underline}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
+a{text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+<aside class="sb">
+  <div class="sb-logo">
+    <div class="lm"><svg viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h8M3 13h10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+    <div class="ln">Dream Database</div><div class="ls">The Execution Layer for Hotels</div>
+  </div>
+  <nav class="sb-nav">
+    <a class="ni" href="index.html"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/></svg>Dashboard</a>
+    <a class="ni on" href="events.html"><svg viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1v3M11 1v3M1.5 6.5h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Events<span class="nd">12</span></a>
+    <a class="ni" href="clients.html"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Guests</a>
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M1 12l4-4 3 3 4-5 3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Analytics</a>
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M3 3h10v10H3zM6 3v10M3 6h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reports</a>
+    <a class="ni" href="approvals.html"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5A5.5 5.5 0 0113.5 7c0 3.3-1 5.2-2 6H4.5c-1-.8-2-2.7-2-6A5.5 5.5 0 018 1.5z" stroke="currentColor" stroke-width="1.3"/><path d="M6 13v.5a2 2 0 004 0V13" stroke="currentColor" stroke-width="1.3"/></svg>Notifications<span class="nd r">3</span></a>
+  </nav>
+  <div class="sb-bot">
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>Settings</a>
+    <a class="ni" href="login.html"><svg viewBox="0 0 16 16" fill="none"><path d="M10 2h3a1 1 0 011 1v10a1 1 0 01-1 1h-3M7 11l4-3-4-3M2 8h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sign Out</a>
+    <div class="ub"><div class="ua">JM</div><div><div class="un">Jamie Mills</div><div class="ur">Event Manager</div></div></div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="breadcrumb bc">
+      <a href="events.html">Events</a><span class="bcs">/</span>
+      <span style="color:var(--t);font-weight:500">Create Event</span>
+    </div>
+    <div class="tbr">
+      <a class="btn" href="events.html">Cancel</a>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- Steps -->
+    <div class="steps-col">
+      <div class="steps-card">
+        <div class="steps-head">Event Setup</div>
+        <div class="step-item active" onclick="goStep(1,this)">
+          <div class="snum" data-n="1">1</div>
+          <div class="sname">Client Information</div>
+        </div>
+        <div class="step-item" onclick="goStep(2,this)">
+          <div class="snum" data-n="2">2</div>
+          <div class="sname">Event Details</div>
+        </div>
+        <div class="step-item" onclick="goStep(3,this)">
+          <div class="snum" data-n="3">3</div>
+          <div class="sname">Venue & Spaces</div>
+        </div>
+        <div class="step-item" onclick="goStep(4,this)">
+          <div class="snum" data-n="4">4</div>
+          <div class="sname">Room Block</div>
+        </div>
+        <div class="step-item" onclick="goStep(5,this)">
+          <div class="snum" data-n="5">5</div>
+          <div class="sname">Team Assignment</div>
+        </div>
+        <div class="step-item" onclick="goStep(6,this)">
+          <div class="snum" data-n="6">6</div>
+          <div class="sname">Review & Create</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-col">
+      <!-- Step 1: Client Information -->
+      <div class="form-card" id="step1">
+        <div class="fh">
+          <div class="ft">1. Client Information</div>
+          <div class="fs">Enter the primary contact and company details for this event</div>
+        </div>
+        <div class="fb">
+          <div class="sec-label" style="margin-top:0">Primary Contact</div>
+          <div class="fg">
+            <div class="fl"><label>First Name</label><input class="fi" type="text" placeholder="Sarah"></div>
+            <div class="fl"><label>Last Name</label><input class="fi" type="text" placeholder="Chen"></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Email Address</label><input class="fi" type="email" placeholder="sarah@company.com"></div>
+            <div class="fl"><label>Phone</label><input class="fi" type="tel" placeholder="+1 (555) 000-0000"></div>
+          </div>
+
+          <div class="sec-label">Company / Organization</div>
+          <div class="fl"><label>Company Name</label><input class="fi" type="text" placeholder="Harrington Group"></div>
+          <div class="fg">
+            <div class="fl"><label>Industry</label>
+              <select class="fi"><option value="">Select industry</option><option>Corporate / Finance</option><option>Technology</option><option>Healthcare</option><option>Non-Profit</option><option>Social / Wedding</option><option>Government</option><option>Other</option></select>
+            </div>
+            <div class="fl"><label>Group Size (approx.)</label><input class="fi" type="number" placeholder="0"></div>
+          </div>
+          <div class="fl"><label>Mailing Address</label><input class="fi" type="text" placeholder="123 Business Ave, Suite 100"></div>
+          <div class="fg3">
+            <div class="fl"><label>City</label><input class="fi" type="text" placeholder="New York"></div>
+            <div class="fl"><label>State</label><input class="fi" type="text" placeholder="NY"></div>
+            <div class="fl"><label>ZIP</label><input class="fi" type="text" placeholder="10001"></div>
+          </div>
+
+          <div class="sec-label">Additional Notes</div>
+          <div class="fl"><label>Client Notes</label><textarea class="fi" rows="3" placeholder="VIP requirements, prior relationship notes, special considerations…" style="resize:vertical"></textarea></div>
+        </div>
+        <div class="ffooter">
+          <span class="step-info">Step 1 of 6</span>
+          <div class="fbtns">
+            <button class="btn btn-g" onclick="goStepNum(2)">Next: Event Details →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-card" id="step2" style="display:none">
+        <div class="fh"><div class="ft">2. Event Details</div><div class="fs">Define the core event parameters</div></div>
+        <div class="fb">
+          <div class="fl"><label>Event Name</label><input class="fi" type="text" placeholder="Harrington Annual Leadership Retreat 2025"></div>
+          <div class="fg">
+            <div class="fl"><label>Event Type</label><select class="fi"><option>Corporate Meeting</option><option>Wedding</option><option>Gala / Fundraiser</option><option>Conference</option><option>Product Launch</option><option>Board Dinner</option></select></div>
+            <div class="fl"><label>Event Status</label><select class="fi"><option>Tentative</option><option>Definite</option><option>Contracted</option></select></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Start Date</label><input class="fi" type="date"></div>
+            <div class="fl"><label>End Date</label><input class="fi" type="date"></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Start Time</label><input class="fi" type="time" value="09:00"></div>
+            <div class="fl"><label>End Time</label><input class="fi" type="time" value="17:00"></div>
+          </div>
+          <div class="fl"><label>Event Description</label><textarea class="fi" rows="3" placeholder="Brief description of the event…" style="resize:vertical"></textarea></div>
+        </div>
+        <div class="ffooter">
+          <span class="step-info">Step 2 of 6</span>
+          <div class="fbtns">
+            <button class="btn" onclick="goStepNum(1)">← Back</button>
+            <button class="btn btn-g" onclick="goStepNum(3)">Next: Venue & Spaces →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-card" id="step3" style="display:none">
+        <div class="fh"><div class="ft">3. Venue & Spaces</div><div class="fs">Assign meeting spaces and F&B requirements</div></div>
+        <div class="fb">
+          <div class="sec-label" style="margin-top:0">Primary Space</div>
+          <div class="fg">
+            <div class="fl"><label>Venue / Space</label><select class="fi"><option>Grand Ballroom</option><option>Lakeview Room</option><option>Skyline Terrace</option><option>Dalton Room</option><option>Convention Hall</option><option>Rooftop Venue</option><option>Private Dining</option></select></div>
+            <div class="fl"><label>Setup Style</label><select class="fi"><option>Banquet Rounds</option><option>Theater</option><option>Classroom</option><option>U-Shape</option><option>Boardroom</option><option>Reception</option></select></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Confirmed Guests</label><input class="fi" type="number" placeholder="0"></div>
+            <div class="fl"><label>Maximum Capacity</label><input class="fi" type="number" placeholder="0" readonly style="background:var(--b2);color:var(--tm)"></div>
+          </div>
+          <div class="sec-label">Food & Beverage</div>
+          <div class="fg">
+            <div class="fl"><label>Meal Functions</label><select class="fi" multiple style="height:80px"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Reception / Cocktails</option><option>Coffee Breaks</option><option>Banquet</option></select></div>
+            <div class="fl"><label>Service Style</label><select class="fi"><option>Buffet</option><option>Plated Service</option><option>Family Style</option><option>Cocktail / Passed</option><option>Food Stations</option></select></div>
+          </div>
+          <div class="fl"><label>Special Dietary Requirements</label><input class="fi" type="text" placeholder="e.g. 12 vegetarian, 4 gluten-free, 2 nut allergy"></div>
+          <div class="sec-label">AV & Equipment</div>
+          <div class="fl"><label>AV Requirements</label><textarea class="fi" rows="2" placeholder="Projector, screens, microphones, livestream, staging…" style="resize:vertical"></textarea></div>
+        </div>
+        <div class="ffooter">
+          <span class="step-info">Step 3 of 6</span>
+          <div class="fbtns">
+            <button class="btn" onclick="goStepNum(2)">← Back</button>
+            <button class="btn btn-g" onclick="goStepNum(4)">Next: Room Block →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="form-card" id="step4" style="display:none">
+        <div class="fh"><div class="ft">4. Room Block</div><div class="fs">Set up the room block and housing details</div></div>
+        <div class="fb">
+          <div class="fg">
+            <div class="fl"><label>Total Rooms in Block</label><input class="fi" type="number" placeholder="0"></div>
+            <div class="fl"><label>Cutoff Date</label><input class="fi" type="date"></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Room Type</label><select class="fi"><option>King</option><option>Double Queen</option><option>Suite</option><option>Mixed</option></select></div>
+            <div class="fl"><label>Nightly Rate</label><input class="fi" type="text" placeholder="$0.00"></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Check-in Date</label><input class="fi" type="date"></div>
+            <div class="fl"><label>Check-out Date</label><input class="fi" type="date"></div>
+          </div>
+          <div class="fl"><label>Room Block Notes</label><textarea class="fi" rows="2" placeholder="Special requests, suite upgrades, VIP rooms…" style="resize:vertical"></textarea></div>
+        </div>
+        <div class="ffooter">
+          <span class="step-info">Step 4 of 6</span>
+          <div class="fbtns">
+            <button class="btn" onclick="goStepNum(3)">← Back</button>
+            <button class="btn btn-g" onclick="goStepNum(5)">Next: Team →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="form-card" id="step5" style="display:none">
+        <div class="fh"><div class="ft">5. Team Assignment</div><div class="fs">Assign hotel staff to manage this event</div></div>
+        <div class="fb">
+          <div class="fg">
+            <div class="fl"><label>Event Manager (Lead)</label><select class="fi"><option>Jamie Mills</option><option>Alex Rivera</option><option>Pat Chen</option></select></div>
+            <div class="fl"><label>Sales Owner</label><select class="fi"><option>Maria Torres</option><option>David Kim</option><option>Lisa Ross</option><option>Tom Hughes</option></select></div>
+          </div>
+          <div class="fg">
+            <div class="fl"><label>Catering Manager</label><select class="fi"><option>Chris Santos</option><option>Nina Patel</option><option>—</option></select></div>
+            <div class="fl"><label>Finance Contact</label><select class="fi"><option>Rebecca Walsh</option><option>Mark Lee</option><option>—</option></select></div>
+          </div>
+          <div class="fl"><label>Additional Team Notes</label><textarea class="fi" rows="2" placeholder="Any coordination notes for the team…" style="resize:vertical"></textarea></div>
+        </div>
+        <div class="ffooter">
+          <span class="step-info">Step 5 of 6</span>
+          <div class="fbtns">
+            <button class="btn" onclick="goStepNum(4)">← Back</button>
+            <button class="btn btn-g" onclick="goStepNum(6)">Next: Review →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Review -->
+      <div class="form-card" id="step6" style="display:none">
+        <div class="fh"><div class="ft">6. Review & Create</div><div class="fs">Confirm event details before creating</div></div>
+        <div class="fb">
+          <div style="background:#fffbf3;border:1px solid #f0d080;border-radius:var(--rs);padding:14px 16px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="8" cy="8" r="6.5" stroke="var(--gold)" stroke-width="1.3"/><path d="M8 5v3M8 9.5v.5" stroke="var(--gold)" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <div style="font-size:12.5px;color:#78540a">Review all details before creating. You can edit anything after creation from the event workspace.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div style="background:var(--b2);border-radius:var(--rs);padding:14px 16px">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:10px">Client</div>
+              <div style="font-size:13px;font-weight:500">Sarah Chen</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:2px">Harrington Group</div>
+              <div style="font-size:12px;color:var(--tm)">sarah@company.com</div>
+            </div>
+            <div style="background:var(--b2);border-radius:var(--rs);padding:14px 16px">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:10px">Event</div>
+              <div style="font-size:13px;font-weight:500">Harrington Annual Retreat</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:2px">Jun 18–20, 2025</div>
+              <div style="font-size:12px;color:var(--tm)">Corporate Meeting</div>
+            </div>
+            <div style="background:var(--b2);border-radius:var(--rs);padding:14px 16px">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:10px">Venue</div>
+              <div style="font-size:13px;font-weight:500">Grand Ballroom</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:2px">120 guests · Banquet Rounds</div>
+              <div style="font-size:12px;color:var(--tm)">Breakfast, Lunch, Reception</div>
+            </div>
+            <div style="background:var(--b2);border-radius:var(--rs);padding:14px 16px">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:10px">Room Block</div>
+              <div style="font-size:13px;font-weight:500">40 rooms held</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:2px">Cutoff: Jun 11</div>
+              <div style="font-size:12px;color:var(--tm)">King + Double Queen</div>
+            </div>
+          </div>
+        </div>
+        <div class="ffooter">
+          <span class="step-info">Step 6 of 6</span>
+          <div class="fbtns">
+            <button class="btn" onclick="goStepNum(5)">← Back</button>
+            <button class="btn btn-g" onclick="location.href='event-detail.html'" style="padding:7px 18px;font-size:12.5px">Create Event →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let cur=1;
+function goStepNum(n){goStep(n,document.querySelectorAll('.step-item')[n-1])}
+function goStep(n,el){
+  // hide all
+  for(let i=1;i<=6;i++){const s=document.getElementById('step'+i);if(s)s.style.display='none'}
+  const ns=document.getElementById('step'+n);if(ns)ns.style.display='';
+  // update sidebar
+  document.querySelectorAll('.step-item').forEach((s,i)=>{
+    s.classList.remove('active','done');
+    const sn=s.querySelector('.snum');
+    if(i+1<n){s.classList.add('done');sn.textContent=''}
+    else if(i+1===n){s.classList.add('active');sn.textContent=i+1}
+    else{sn.textContent=i+1}
+  });
+  cur=n;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

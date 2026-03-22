@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Database — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sb:#111827;--sb-hover:#1f2937;--sb-text:#9ca3af;--sb-active:#f9fafb;
+  --gold:#c9973a;--gold-h:#a67c28;--gold-bg:rgba(201,151,58,.12);--gold-t:#d4a843;
+  --bg:#f5f5f5;--surface:#fff;--b:#e5e7eb;--b2:#f3f4f6;
+  --t:#111827;--tm:#6b7280;--tl:#9ca3af;
+  --green:#16a34a;--gbg:#dcfce7;--gt:#15803d;
+  --red:#dc2626;--rbg:#fee2e2;--rt:#b91c1c;
+  --yb:#fef3c7;--yt:#92400e;
+  --blue:#2563eb;--bb:#dbeafe;--bt:#1d4ed8;
+  --r:8px;--rs:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);font-size:13px;line-height:1.5;min-height:100vh;display:flex}
+
+/* Sidebar */
+.sb{width:196px;min-height:100vh;background:var(--sb);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sb-logo{padding:18px 14px 14px;border-bottom:1px solid #1f2937}
+.lm{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.lm svg{width:17px;height:17px}
+.ln{font-size:12.5px;font-weight:600;color:#f9fafb;letter-spacing:.1px}
+.ls{font-size:10px;color:var(--sb-text);margin-top:1px}
+.sb-nav{flex:1;padding:10px 7px;overflow-y:auto}
+.nl{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#4b5563;padding:8px 8px 3px}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:var(--rs);color:var(--sb-text);font-size:12.5px;cursor:pointer;transition:all .12s;text-decoration:none;margin-bottom:1px}
+.ni:hover{background:var(--sb-hover);color:#e5e7eb}
+.ni.on{background:var(--sb-hover);color:var(--sb-active)}
+.ni svg{width:14px;height:14px;flex-shrink:0}
+.nd{margin-left:auto;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:var(--gold);color:#fff}
+.nd.r{background:var(--red)}
+.sb-bot{border-top:1px solid #1f2937;padding:10px 7px}
+.ub{padding:9px;border-radius:var(--rs);cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .12s}
+.ub:hover{background:var(--sb-hover)}
+.ua{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.un{font-size:11.5px;font-weight:500;color:#e5e7eb}
+.ur{font-size:9.5px;color:var(--sb-text)}
+
+/* Main */
+.main{margin-left:196px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--surface);border-bottom:1px solid var(--b);padding:0 22px;height:50px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tbt{font-size:14px;font-weight:600;color:var(--t)}
+.tbs{font-size:11px;color:var(--tm)}
+.tbr{display:flex;align-items:center;gap:7px}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:var(--rs);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--b);background:var(--surface);color:var(--t);transition:all .12s;font-family:inherit;text-decoration:none}
+.btn:hover{background:var(--bg)}
+.btn-g{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-g:hover{background:var(--gold-h)}
+.btn svg{width:12px;height:12px}
+.ib{width:30px;height:30px;border-radius:var(--rs);border:1px solid var(--b);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .12s;position:relative}
+.ib:hover{background:var(--bg)}
+.ib svg{width:14px;height:14px;color:var(--tm)}
+.ndot{position:absolute;top:4px;right:4px;width:6px;height:6px;background:var(--red);border-radius:50%;border:1.5px solid #fff}
+
+/* Content */
+.content{padding:18px 22px;flex:1}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
+.sc{background:var(--surface);border:1px solid var(--b);border-radius:var(--r);padding:14px 16px;transition:box-shadow .12s;cursor:default}
+.sc:hover{box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.si{width:30px;height:30px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center}
+.si svg{width:15px;height:15px}
+.si-b{background:var(--bb)}.si-b svg{color:var(--blue)}
+.si-g{background:var(--gbg)}.si-g svg{color:var(--green)}
+.si-o{background:var(--gold-bg)}.si-o svg{color:var(--gold-t)}
+.si-r{background:var(--rbg)}.si-r svg{color:var(--red)}
+.sd{font-size:10.5px;font-weight:500}
+.du{color:var(--green)}.dd{color:var(--red)}
+.sv{font-size:24px;font-weight:300;letter-spacing:-.5px;line-height:1;margin-bottom:3px}
+.sl{font-size:11px;color:var(--tm);font-weight:500}
+
+/* Grid */
+.mg{display:grid;grid-template-columns:1fr 290px;gap:14px}
+.lc{display:flex;flex-direction:column;gap:14px}
+.rc{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--surface);border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
+.ch{padding:13px 16px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between}
+.ct{font-size:13px;font-weight:600}
+.ca{font-size:11.5px;color:var(--gold-t);cursor:pointer;font-weight:500;text-decoration:none}
+.ca:hover{text-decoration:underline}
+
+/* Table */
+.et{width:100%;border-collapse:collapse}
+.et th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);padding:8px 13px;background:#fafafa;border-bottom:1px solid var(--b)}
+.et td{padding:10px 13px;border-bottom:1px solid var(--b2);font-size:12px;vertical-align:middle}
+.et tr:last-child td{border-bottom:none}
+.et tbody tr{cursor:pointer;transition:background .1s}
+.et tbody tr:hover td{background:#fafafa}
+.en{font-weight:500;font-size:12px}
+.ec{font-size:10.5px;color:var(--tm);margin-top:1px}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px}
+.bg{background:var(--gbg);color:var(--gt)}
+.bo{background:var(--yb);color:var(--yt)}
+.bb{background:var(--bb);color:var(--bt)}
+.br{background:var(--rbg);color:var(--rt)}
+.bx{background:var(--b2);color:var(--tm)}
+
+/* Right panels */
+.ai{padding:11px 14px;border-bottom:1px solid var(--b2);display:flex;flex-direction:column;gap:7px}
+.ai:last-child{border-bottom:none}
+.at{display:flex;align-items:flex-start;gap:9px}
+.aico{width:26px;height:26px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.atit{font-size:12px;font-weight:500}
+.asub{font-size:10.5px;color:var(--tm);margin-top:1px}
+.abs{display:flex;gap:5px;padding-left:35px}
+.bap{padding:4px 11px;font-size:11px;font-weight:500;background:var(--gold);color:#fff;border:none;border-radius:var(--rs);cursor:pointer;font-family:inherit;transition:background .12s}
+.bap:hover{background:var(--gold-h)}
+.bde{padding:4px 9px;font-size:11px;background:transparent;color:var(--tm);border:1px solid var(--b);border-radius:var(--rs);cursor:pointer;font-family:inherit;transition:all .12s}
+.bde:hover{border-color:var(--red);color:var(--red)}
+
+/* Tasks */
+.ti{padding:9px 14px;border-bottom:1px solid var(--b2);display:flex;align-items:flex-start;gap:9px;cursor:pointer;transition:background .1s}
+.ti:hover{background:#fafafa}
+.ti:last-child{border-bottom:none}
+.tc{width:13px;height:13px;border:1.5px solid #d1d5db;border-radius:3px;flex-shrink:0;margin-top:1px;transition:all .15s;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.tc.ck{background:var(--gold);border-color:var(--gold)}
+.tc.ck::after{content:'';display:block;width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+.tb{flex:1}
+.tn{font-size:12px}
+.tn.dn{color:var(--tl);text-decoration:line-through}
+.tm2{font-size:10.5px;color:var(--tm);margin-top:1px}
+.dr{color:var(--red);font-weight:500;font-size:10.5px}
+.dl{color:var(--tl);font-size:10.5px}
+
+/* Activity */
+.aci{padding:9px 14px;border-bottom:1px solid var(--b2);display:flex;gap:9px;align-items:flex-start}
+.aci:last-child{border-bottom:none}
+.ad{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ag{background:var(--green)}.ao{background:var(--gold)}.ar{background:var(--red)}.ab{background:var(--blue)}
+.axt{font-size:11.5px;color:var(--tm);flex:1;line-height:1.45}
+.axt strong{color:var(--t);font-weight:500}
+.atime{font-size:10px;color:var(--tl);white-space:nowrap}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
+a{text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+
+<aside class="sb">
+  <div class="sb-logo">
+    <div class="lm"><svg viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h8M3 13h10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+    <div class="ln">Dream Database</div>
+    <div class="ls">The Execution Layer for Hotels</div>
+  </div>
+  <nav class="sb-nav">
+    <a class="ni on" href="index.html"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/></svg>Dashboard</a>
+    <a class="ni" href="events.html"><svg viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1v3M11 1v3M1.5 6.5h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Events<span class="nd">12</span></a>
+    <a class="ni" href="clients.html"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Guests</a>
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M1 12l4-4 3 3 4-5 3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Analytics</a>
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M3 3h10v10H3zM6 3v10M3 6h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reports</a>
+    <a class="ni" href="approvals.html"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5A5.5 5.5 0 0113.5 7c0 3.3-1 5.2-2 6H4.5c-1-.8-2-2.7-2-6A5.5 5.5 0 018 1.5z" stroke="currentColor" stroke-width="1.3"/><path d="M6 13v.5a2 2 0 004 0V13" stroke="currentColor" stroke-width="1.3"/></svg>Notifications<span class="nd r">3</span></a>
+  </nav>
+  <div class="sb-bot">
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5.5c0 0 .5-1.5 2-1.5s2 1 2 2-1 2-2 2.5V10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="12" r=".5" fill="currentColor"/></svg>Settings</a>
+    <a class="ni" href="login.html"><svg viewBox="0 0 16 16" fill="none"><path d="M10 2h3a1 1 0 011 1v10a1 1 0 01-1 1h-3M7 11l4-3-4-3M2 8h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sign Out</a>
+    <div class="ub"><div class="ua">JM</div><div><div class="un">Jamie Mills</div><div class="ur">Event Manager</div></div></div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div><div class="tbt">Dashboard Overview</div><div class="tbs">Saturday, February 28, 2026 — Welcome back. Here's what's happening with your events today.</div></div>
+    <div class="tbr">
+      <div class="ib"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5A5.5 5.5 0 0113.5 7c0 3.3-1 5.2-2 6H4.5c-1-.8-2-2.7-2-6A5.5 5.5 0 018 1.5z" stroke="currentColor" stroke-width="1.4"/><path d="M6 13v.5a2 2 0 004 0V13" stroke="currentColor" stroke-width="1.3"/></svg><div class="ndot"></div></div>
+      <div class="ib"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+      <a class="btn btn-g" href="event-create.html"><svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Add Event</a>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="stats">
+      <div class="sc"><div class="sh"><div class="si si-b"><svg viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 1v3M11 1v3M1.5 6.5h13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div><span class="sd du">▲ +14.5%</span></div><div class="sv">248</div><div class="sl">Total Events</div></div>
+      <div class="sc"><div class="sh"><div class="si si-g"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="sd du">▲ +16.2%</span></div><div class="sv">12,847</div><div class="sl">Total Guests</div></div>
+      <div class="sc"><div class="sh"><div class="si si-o"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2l1.5 3 3.5.5-2.5 2.5.6 3.5L8 10l-3.1 1.5.6-3.5L3 5.5l3.5-.5z" stroke="currentColor" stroke-width="1.2"/></svg></div><span class="sd du">▲ +15.3%</span></div><div class="sv">$1.2M</div><div class="sl">Total Revenue</div></div>
+      <div class="sc"><div class="sh"><div class="si si-r"><svg viewBox="0 0 16 16" fill="none"><path d="M2 12V5l6-3 6 3v7l-6 3-6-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div><span class="sd dd">▼ -3.3%</span></div><div class="sv">87.5%</div><div class="sl">Avg. Occupancy</div></div>
+    </div>
+
+    <div class="mg">
+      <div class="lc">
+        <div class="card">
+          <div class="ch">
+            <div><div class="ct">Upcoming Events</div><div style="font-size:10.5px;color:var(--tm);margin-top:1px">View and track your hospitality events</div></div>
+            <a class="btn btn-g" href="event-create.html" style="font-size:11px;padding:5px 11px"><svg viewBox="0 0 16 16" fill="none" width="11" height="11"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Add Event</a>
+          </div>
+          <table class="et">
+            <thead><tr><th>Event ID</th><th>Event Name</th><th>Venue</th><th>Date</th><th>Guests</th><th>Revenue</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr onclick="location.href='event-detail.html'"><td style="color:var(--tm)">EV-001</td><td><div class="en">Annual Gala Dinner</div></td><td>Grand Ballroom</td><td>Mar 15, 2025</td><td>150</td><td>$47,500</td><td><span class="badge bg">Confirmed</span></td><td><a href="event-detail.html" class="ca" onclick="event.stopPropagation()">View</a></td></tr>
+              <tr onclick="location.href='event-detail.html'"><td style="color:var(--tm)">EV-002</td><td><div class="en">Corporate Retreat</div></td><td>Lakeview Room</td><td>Mar 22, 2025</td><td>120</td><td>$45,000</td><td><span class="badge bg">Confirmed</span></td><td><a href="event-detail.html" class="ca" onclick="event.stopPropagation()">View</a></td></tr>
+              <tr onclick="location.href='event-detail.html'"><td style="color:var(--tm)">EV-003</td><td><div class="en">Product Launch Party</div></td><td>Skyline Terrace</td><td>Mar 28, 2025</td><td>200</td><td>$32,000</td><td><span class="badge bo">Pending</span></td><td><a href="event-detail.html" class="ca" onclick="event.stopPropagation()">View</a></td></tr>
+              <tr onclick="location.href='event-detail.html'"><td style="color:var(--tm)">EV-004</td><td><div class="en">Wedding Reception</div></td><td>Dalton Room</td><td>Apr 25, 2025</td><td>180</td><td>$65,000</td><td><span class="badge bg">Confirmed</span></td><td><a href="event-detail.html" class="ca" onclick="event.stopPropagation()">View</a></td></tr>
+              <tr onclick="location.href='event-detail.html'"><td style="color:var(--tm)">EV-005</td><td><div class="en">Tech Conference</div></td><td>Convention Hall</td><td>Feb 20, 2025</td><td>500</td><td>$125,000</td><td><span class="badge bx">Completed</span></td><td><a href="event-detail.html" class="ca" onclick="event.stopPropagation()">View</a></td></tr>
+              <tr onclick="location.href='event-detail.html'"><td style="color:var(--tm)">EV-006</td><td><div class="en">Charity Fundraiser</div></td><td>Hilton Manor</td><td>Mar 10, 2025</td><td>150</td><td>$28,000</td><td><span class="badge bo">Pending</span></td><td><a href="event-detail.html" class="ca" onclick="event.stopPropagation()">View</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rc">
+        <div class="card">
+          <div class="ch"><span class="ct">Pending Approvals</span><a class="ca" href="approvals.html">View all →</a></div>
+          <div class="ai">
+            <div class="at"><div class="aico" style="background:var(--yb)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 3.5h8M2.5 6.5h8M2.5 9.5h5" stroke="var(--yt)" stroke-width="1.3" stroke-linecap="round"/></svg></div><div><div class="atit">BEO — Meridian Tech</div><div class="asub">Catering · 2 days ago</div></div></div>
+            <div class="abs"><button class="bap" onclick="this.closest('.ai').style.opacity='.35'">Approve</button><button class="bde">Decline</button></div>
+          </div>
+          <div class="ai">
+            <div class="at"><div class="aico" style="background:var(--rbg)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 10V5.5l4.5-3 4.5 3V10" stroke="var(--rt)" stroke-width="1.3" stroke-linejoin="round"/></svg></div><div><div class="atit">Block Release — Eastern Bank</div><div class="asub" style="color:var(--red)">Overdue · Cutoff passed</div></div></div>
+            <div class="abs"><button class="bap" onclick="this.closest('.ai').style.opacity='.35'">Review</button></div>
+          </div>
+          <div class="ai">
+            <div class="at"><div class="aico" style="background:var(--bb)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="var(--bt)" stroke-width="1.3"/><path d="M4 6.5l2 2 3.5-3.5" stroke="var(--bt)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="atit">Menu — Chen & Parker</div><div class="asub">Catering sign-off needed</div></div></div>
+            <div class="abs"><button class="bap" onclick="this.closest('.ai').style.opacity='.35'">Approve</button><button class="bde">Decline</button></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><span class="ct">My Tasks Today</span><a class="ca" href="#">All tasks →</a></div>
+          <div class="ti"><div class="tc ck" onclick="toggleTask(this)"></div><div class="tb"><div class="tn dn">Send BEO to Harrington</div><div class="tm2">Harrington Retreat</div></div><span class="dl">Done</span></div>
+          <div class="ti"><div class="tc ck" onclick="toggleTask(this)"></div><div class="tb"><div class="tn dn">Confirm AV — Grand Salon</div><div class="tm2">Meridian Tech</div></div><span class="dl">Done</span></div>
+          <div class="ti"><div class="tc" onclick="toggleTask(this)"></div><div class="tb"><div class="tn">Collect final headcount</div><div class="tm2">Chen & Parker Wedding</div></div><span class="dr">5pm</span></div>
+          <div class="ti"><div class="tc" onclick="toggleTask(this)"></div><div class="tb"><div class="tn">Review room block cutoff</div><div class="tm2">Eastern Bank Summit</div></div><span class="dr">Overdue</span></div>
+          <div class="ti"><div class="tc" onclick="toggleTask(this)"></div><div class="tb"><div class="tn">Upload catering contract</div><div class="tm2">Northgate Gala</div></div><span class="dl">Tomorrow</span></div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><span class="ct">Recent Activity</span></div>
+          <div class="aci"><div class="ad ag"></div><div class="axt"><strong>BEO approved</strong> — Harrington Retreat v3.1</div><div class="atime">2m ago</div></div>
+          <div class="aci"><div class="ad ao"></div><div class="axt"><strong>Menu submitted</strong> by Sarah Chen (client)</div><div class="atime">1h ago</div></div>
+          <div class="aci"><div class="ad ar"></div><div class="axt"><strong>Block cutoff alert</strong> — Eastern Bank Summit</div><div class="atime">3h ago</div></div>
+          <div class="aci"><div class="ad ab"></div><div class="axt"><strong>New event</strong> — Westfield Board Dinner created</div><div class="atime">Yesterday</div></div>
+          <div class="aci"><div class="ad ag"></div><div class="axt"><strong>Payment $25,000</strong> received — Northgate Gala</div><div class="atime">Yesterday</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleTask(cb){cb.classList.toggle('ck');const n=cb.closest('.ti').querySelector('.tn');n.classList.toggle('dn')}
+</script>
+</body>
+</html>

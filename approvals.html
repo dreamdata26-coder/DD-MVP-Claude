@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Database — Approvals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--sb:#111827;--sbh:#1f2937;--sbt:#9ca3af;--sba:#f9fafb;--gold:#c9973a;--gh:#a67c28;--gt:#d4a843;--bg:#f5f5f5;--s:#fff;--b:#e5e7eb;--b2:#f3f4f6;--t:#111827;--tm:#6b7280;--tl:#9ca3af;--green:#16a34a;--gbg:#dcfce7;--gtt:#15803d;--red:#dc2626;--rbg:#fee2e2;--rt:#b91c1c;--yb:#fef3c7;--yt:#92400e;--blue:#2563eb;--bb:#dbeafe;--bt:#1d4ed8;--r:8px;--rs:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);font-size:13px;line-height:1.5;min-height:100vh;display:flex}
+.sb{width:196px;min-height:100vh;background:var(--sb);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sb-logo{padding:18px 14px 14px;border-bottom:1px solid #1f2937}
+.lm{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.lm svg{width:17px;height:17px}
+.ln{font-size:12.5px;font-weight:600;color:#f9fafb}
+.ls{font-size:10px;color:var(--sbt);margin-top:1px}
+.sb-nav{flex:1;padding:10px 7px;overflow-y:auto}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:var(--rs);color:var(--sbt);font-size:12.5px;cursor:pointer;transition:all .12s;text-decoration:none;margin-bottom:1px}
+.ni:hover{background:var(--sbh);color:#e5e7eb}
+.ni.on{background:var(--sbh);color:var(--sba)}
+.ni svg{width:14px;height:14px;flex-shrink:0}
+.nd{margin-left:auto;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:var(--gold);color:#fff}
+.nd.r{background:var(--red)}
+.sb-bot{border-top:1px solid #1f2937;padding:10px 7px}
+.ub{padding:9px;border-radius:var(--rs);cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .12s}
+.ub:hover{background:var(--sbh)}
+.ua{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.un{font-size:11.5px;font-weight:500;color:#e5e7eb}
+.ur{font-size:9.5px;color:var(--sbt)}
+.main{margin-left:196px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--s);border-bottom:1px solid var(--b);padding:0 22px;height:50px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tbr{display:flex;align-items:center;gap:7px}
+.tbt{font-size:14px;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:var(--rs);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--b);background:var(--s);color:var(--t);transition:all .12s;font-family:inherit;text-decoration:none}
+.btn:hover{background:var(--bg)}
+.btn-g{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-g:hover{background:var(--gh)}
+.content{padding:18px 22px;flex:1}
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:4px}
+.bg{background:var(--gbg);color:var(--gtt)}
+.bo{background:var(--yb);color:var(--yt)}
+.bb{background:var(--bb);color:var(--bt)}
+.br{background:var(--rbg);color:var(--rt)}
+.bx{background:var(--b2);color:var(--tm)}
+.sec-title{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tm);margin-bottom:9px}
+.sec-title:not(:first-child){margin-top:22px}
+
+.ac{background:var(--s);border:1px solid var(--b);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:box-shadow .12s}
+.ac:hover{box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.ach{padding:14px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.aci{display:flex;gap:12px;align-items:flex-start;flex:1}
+.acico{width:32px;height:32px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.act{font-size:13px;font-weight:600;margin-bottom:2px}
+.acs{font-size:11.5px;color:var(--tm)}
+.acm{display:flex;gap:12px;padding:0 18px 12px;flex-wrap:wrap}
+.acmi{display:flex;flex-direction:column;gap:1px}
+.acml{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--tl);font-weight:600}
+.acmv{font-size:12px;font-weight:500}
+.acf{padding:11px 18px;border-top:1px solid var(--b);display:flex;gap:7px;align-items:center;background:#fafafa}
+.bap{padding:6px 16px;font-size:12px;font-weight:500;background:var(--gold);color:#fff;border:none;border-radius:var(--rs);cursor:pointer;font-family:inherit;transition:background .12s}
+.bap:hover{background:var(--gh)}
+.bde{padding:6px 12px;font-size:12px;background:transparent;color:var(--tm);border:1px solid var(--b);border-radius:var(--rs);cursor:pointer;font-family:inherit;transition:all .12s}
+.bde:hover{border-color:var(--red);color:var(--red)}
+.brev{padding:6px 12px;font-size:12px;background:transparent;color:var(--bt);border:1px solid var(--bb);border-radius:var(--rs);cursor:pointer;font-family:inherit;transition:all .12s}
+.brev:hover{background:var(--bb)}
+.note{margin-left:auto;font-size:11px;color:var(--tm);display:flex;align-items:center;gap:4px}
+.note-red{color:var(--red)}
+
+.hist-table{width:100%;border-collapse:collapse}
+.hist-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);padding:8px 14px;background:#fafafa;border-bottom:1px solid var(--b)}
+.hist-table td{padding:10px 14px;border-bottom:1px solid var(--b2);font-size:12.5px;vertical-align:middle}
+.hist-table tr:last-child td{border-bottom:none}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
+a{text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+<aside class="sb">
+  <div class="sb-logo">
+    <div class="lm"><svg viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h8M3 13h10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+    <div class="ln">Dream Database</div><div class="ls">The Execution Layer for Hotels</div>
+  </div>
+  <nav class="sb-nav">
+    <a class="ni" href="index.html"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".8"/></svg>Dashboard</a>
+    <a class="ni" href="events.html"><svg viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 1v3M11 1v3M1.5 6.5h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Events<span class="nd">12</span></a>
+    <a class="ni" href="clients.html"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Guests</a>
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M1 12l4-4 3 3 4-5 3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Analytics</a>
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M3 3h10v10H3zM6 3v10M3 6h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reports</a>
+    <a class="ni on" href="approvals.html"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5A5.5 5.5 0 0113.5 7c0 3.3-1 5.2-2 6H4.5c-1-.8-2-2.7-2-6A5.5 5.5 0 018 1.5z" stroke="currentColor" stroke-width="1.3"/><path d="M6 13v.5a2 2 0 004 0V13" stroke="currentColor" stroke-width="1.3"/></svg>Notifications<span class="nd r">3</span></a>
+  </nav>
+  <div class="sb-bot">
+    <a class="ni" href="#"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>Settings</a>
+    <a class="ni" href="login.html"><svg viewBox="0 0 16 16" fill="none"><path d="M10 2h3a1 1 0 011 1v10a1 1 0 01-1 1h-3M7 11l4-3-4-3M2 8h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sign Out</a>
+    <div class="ub"><div class="ua">JM</div><div><div class="un">Jamie Mills</div><div class="ur">Event Manager</div></div></div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="tbt">Approvals</div>
+    <div class="tbr"><button class="btn">Audit Log</button></div>
+  </header>
+
+  <div class="content">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px">
+      <div><div style="font-size:18px;font-weight:600;letter-spacing:-.2px">Pending Approvals</div><div style="font-size:12px;color:var(--tm);margin-top:2px">3 pending · 1 overdue · 28 approved this month</div></div>
+    </div>
+
+    <div class="sec-title">Requires Your Action</div>
+
+    <!-- BEO -->
+    <div class="ac" id="ac1">
+      <div class="ach">
+        <div class="aci">
+          <div class="acico" style="background:var(--yb)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.5 4.5h9M3.5 7.5h9M3.5 10.5h6" stroke="var(--yt)" stroke-width="1.4" stroke-linecap="round"/><rect x="1.5" y="1.5" width="13" height="13" rx="2" stroke="var(--yt)" stroke-width="1.3"/></svg></div>
+          <div><div class="act">BEO Approval — Meridian Tech Product Launch</div><div class="acs">BEO v2.0 · Submitted by Chris Santos (Catering) · 2 days ago</div></div>
+        </div>
+        <span class="badge bo">BEO</span>
+      </div>
+      <div class="acm">
+        <div class="acmi"><div class="acml">Event</div><div class="acmv">Meridian Tech — Jun 22</div></div>
+        <div class="acmi"><div class="acml">Venue</div><div class="acmv">Grand Salon</div></div>
+        <div class="acmi"><div class="acml">Guests</div><div class="acmv">280 pax</div></div>
+        <div class="acmi"><div class="acml">F&B Total</div><div class="acmv">$38,400</div></div>
+        <div class="acmi"><div class="acml">Version</div><div class="acmv">v2.0 (revised)</div></div>
+      </div>
+      <div class="acf">
+        <button class="bap" onclick="approve('ac1','BEO')">Approve BEO</button>
+        <button class="bde">Request Changes</button>
+        <button class="brev" onclick="location.href='event-detail.html'">View Full BEO →</button>
+        <span class="note">Submitted 2 days ago · Event in 7 days</span>
+      </div>
+    </div>
+
+    <!-- Room Block -->
+    <div class="ac" id="ac2">
+      <div class="ach">
+        <div class="aci">
+          <div class="acico" style="background:var(--rbg)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 13V7l6-4 6 4v6" stroke="var(--rt)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="act">Room Block Release — Eastern Bank Leadership Summit</div><div class="acs">12 rooms unreleased · Cutoff date passed Jun 11 · Submitted by Reservations</div></div>
+        </div>
+        <span class="badge br">Overdue</span>
+      </div>
+      <div class="acm">
+        <div class="acmi"><div class="acml">Event</div><div class="acmv">Eastern Bank — Jul 3–5</div></div>
+        <div class="acmi"><div class="acml">Block Held</div><div class="acmv">60 rooms</div></div>
+        <div class="acmi"><div class="acml">Picked Up</div><div class="acmv">48 rooms</div></div>
+        <div class="acmi"><div class="acml">To Release</div><div class="acmv" style="color:var(--red)">12 rooms</div></div>
+        <div class="acmi"><div class="acml">Cutoff Was</div><div class="acmv" style="color:var(--red)">Jun 11 (passed)</div></div>
+        <div class="acmi"><div class="acml">Revenue Risk</div><div class="acmv">~$3,600</div></div>
+      </div>
+      <div class="acf">
+        <button class="bap" onclick="approve('ac2','Room Block Release')">Approve Release</button>
+        <button class="bde">Hold Rooms</button>
+        <button class="brev" onclick="location.href='event-detail.html'">View Block →</button>
+        <span class="note note-red">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5L11 10H1L6 1.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M6 5v2.5M6 9v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Cutoff passed 4 days ago
+        </span>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="ac" id="ac3">
+      <div class="ach">
+        <div class="aci">
+          <div class="acico" style="background:var(--bb)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="var(--bt)" stroke-width="1.3"/><path d="M5 8l2 2 4-4" stroke="var(--bt)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="act">Menu Selection Sign-Off — Chen & Parker Wedding</div><div class="acs">Client submitted selections · Needs catering sign-off before confirmation</div></div>
+        </div>
+        <span class="badge bb">Menu</span>
+      </div>
+      <div class="acm">
+        <div class="acmi"><div class="acml">Event</div><div class="acmv">Chen & Parker — Jun 28</div></div>
+        <div class="acmi"><div class="acml">Guests</div><div class="acmv">200 pax</div></div>
+        <div class="acmi"><div class="acml">Menu Type</div><div class="acmv">3-course plated</div></div>
+        <div class="acmi"><div class="acml">F&B Total</div><div class="acmv">$28,000</div></div>
+        <div class="acmi"><div class="acml">Special Diets</div><div class="acmv">14 vegan, 6 GF</div></div>
+      </div>
+      <div class="acf">
+        <button class="bap" onclick="approve('ac3','Menu Selection')">Approve Menu</button>
+        <button class="bde">Request Changes</button>
+        <button class="brev" onclick="location.href='event-detail.html'">View Menu →</button>
+        <span class="note">Submitted today · Event in 13 days</span>
+      </div>
+    </div>
+
+    <div class="sec-title">Recently Approved</div>
+
+    <div style="background:var(--s);border:1px solid var(--b);border-radius:var(--r);overflow:hidden">
+      <table class="hist-table">
+        <thead><tr><th>Item</th><th>Event</th><th>Approved By</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>BEO v3.1 — Harrington Retreat</td><td style="color:var(--tm)">Harrington — Jun 18</td><td style="color:var(--tm)">Jamie Mills</td><td style="color:var(--tm)">Jun 14</td><td><span class="badge bg">Approved</span></td></tr>
+          <tr><td>Menu selection — Harrington</td><td style="color:var(--tm)">Harrington — Jun 18</td><td style="color:var(--tm)">Chris Santos</td><td style="color:var(--tm)">Jun 1</td><td><span class="badge bg">Approved</span></td></tr>
+          <tr><td>Room block — Northgate Gala</td><td style="color:var(--tm)">Northgate — Jul 12</td><td style="color:var(--tm)">Jamie Mills</td><td style="color:var(--tm)">Jun 10</td><td><span class="badge bg">Approved</span></td></tr>
+          <tr><td>Budget increase — Meridian Tech</td><td style="color:var(--tm)">Meridian — Jun 22</td><td style="color:var(--tm)">Rebecca Walsh</td><td style="color:var(--tm)">Jun 8</td><td><span class="badge bg">Approved</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+function approve(id,label){
+  const card=document.getElementById(id);
+  const footer=card.querySelector('.acf');
+  footer.innerHTML=`<span style="color:var(--green);font-size:12.5px;font-weight:500;display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${label} approved</span>`;
+  setTimeout(()=>{card.style.transition='opacity .4s';card.style.opacity='.35';},800);
+}
+</script>
+</body>
+</html>
